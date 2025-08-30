@@ -1,5 +1,5 @@
 import RichTextEditor from '@/components/RichText'
-import { postLesson } from '@/services'
+import { postLesson } from '@/services/lessons'
 import { Button, Flex, Input, Stack, Text } from '@chakra-ui/react'
 import { useForm, Controller } from 'react-hook-form'
 
@@ -10,7 +10,7 @@ export const LessonForm = () => {
       description: '',
       content: '',
       subject: '',
-      user_id: 3,
+      user_id: 3, //mudar para dinamicamente pegar o id da sessão
     },
   })
 

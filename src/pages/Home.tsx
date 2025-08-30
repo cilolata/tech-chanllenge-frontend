@@ -1,6 +1,6 @@
 import { authContext } from '@/contexts/auth-context'
 import { HTTPResponseStatus } from '@/interfaces'
-import { getLogin } from '@/services'
+import { getLogin } from '@/services/session'
 import { permissionTypeFormatter } from '@/utils'
 import {
   Card,

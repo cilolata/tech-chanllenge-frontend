@@ -11,8 +11,8 @@ import {
 import { useParams } from 'react-router'
 import { FaChalkboardTeacher, FaRegCalendarAlt } from 'react-icons/fa'
 import { MdSubject } from 'react-icons/md'
-import { getLesson } from '@/services'
 import type { IPost } from '@/interfaces'
+import { getLesson } from '@/services/lessons'
 
 export const IconWithReactIcon: React.FC<{ children: ReactNode }> = ({
   children,
