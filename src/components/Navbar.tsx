@@ -1,11 +1,16 @@
 import { authContext } from '@/contexts/auth-context'
 import { Box, Flex, Link, Text, HStack, Container } from '@chakra-ui/react'
+import { useMemo } from 'react'
 import { PiStudentBold } from 'react-icons/pi'
 import { useNavigate } from 'react-router'
 
 export const Navbar = () => {
   const navigate = useNavigate()
-  const { sessionData } = authContext()
+  const { sessionData, isTeacher } = authContext()
+  const name = sessionData()?.username
+
+  const teacherPermission = isTeacher()
+
   return (
     <Box
       w={'full'}
@@ -35,10 +40,13 @@ export const Navbar = () => {
           >
             <PiStudentBold size={'24px'} />
           </Container>
-          <Text>{sessionData()?.username ?? 'nome'}</Text>
+          <Text>{name ?? 'nome'}</Text>
         </HStack>
         <HStack gap={'16px'}>
-          <Link onClick={() => navigate('home')}>Sair</Link>
+          {teacherPermission && (
+            <Link onClick={() => navigate('dashboard')}>Dashboard</Link>
+          )}
+          <Link onClick={() => navigate('/')}>Sair</Link>
         </HStack>
       </Flex>
     </Box>
