@@ -1,6 +1,5 @@
 import { authContext } from '@/contexts/auth-context'
 import { Box, Flex, Link, Text, HStack, Container } from '@chakra-ui/react'
-import { useMemo } from 'react'
 import { PiStudentBold } from 'react-icons/pi'
 import { useNavigate } from 'react-router'
 
