@@ -7,6 +7,6 @@
 
 - /
 - /aulas
-- aula/id
-- aula/criar
+- /aula/id
+- /aula/criar
 - /dashboard
