@@ -1,6 +1,6 @@
 ## Setup inicial
 
-- yarn i
+- yarn install
 - yarn dev
 
 ## Rotas
