@@ -1,4 +1,4 @@
-import { authContext } from '@/contexts/auth-context'
+import { authContext } from '@/contexts/AuthContext'
 import { Box, Flex, Link, Text, HStack, Container } from '@chakra-ui/react'
 import { PiStudentBold } from 'react-icons/pi'
 import { useNavigate } from 'react-router'
@@ -39,7 +39,7 @@ export const Navbar = () => {
           >
             <PiStudentBold size={'24px'} />
           </Container>
-          <Text>{name ?? 'nome'}</Text>
+          {name && <Text>{name}</Text>}
         </HStack>
         <HStack gap={'16px'}>
           {teacherPermission && (

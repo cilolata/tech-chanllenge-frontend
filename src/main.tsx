@@ -4,7 +4,7 @@ import { ChakraProvider, createSystem, defaultConfig } from '@chakra-ui/react'
 import { Font, config } from '@/global/global.tsx'
 import './global/global.css'
 import { RoutingManager } from '@/routes/index.tsx'
-import { AuthProvider } from './contexts/auth-context'
+import { AuthProvider } from './contexts/AuthContext'
 
 export const system = createSystem(defaultConfig, config)
 

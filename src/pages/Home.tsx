@@ -1,4 +1,5 @@
-import { authContext } from '@/contexts/auth-context'
+import { AlertComponent } from '@/components/Alert'
+import { authContext } from '@/contexts/AuthContext'
 import { HTTPResponseStatus } from '@/interfaces'
 import { getLogin } from '@/services/session'
 import { permissionTypeFormatter } from '@/utils'
@@ -12,6 +13,7 @@ import {
   VStack,
   Link,
   Checkbox,
+  Box,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -20,12 +22,17 @@ import { useNavigate } from 'react-router-dom'
 export const Home = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [erroMessage, setErrorMessage] = useState<string>('')
 
   const navigate = useNavigate()
 
   const { handleWriteSession } = authContext()
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       username: '',
       password: '',
@@ -43,18 +50,24 @@ export const Home = () => {
         ...rest,
         register: isRegister,
       })
-      if (isRegister && response.statusCode === HTTPResponseStatus.CREATED) {
+      if (isRegister && response.status === HTTPResponseStatus.CREATED) {
         setIsRegister(false)
         setIsLoading(false)
+        setErrorMessage('')
       }
 
-      if (!isRegister && response.statusCode === HTTPResponseStatus.OK) {
+      if (!isRegister && response.status === HTTPResponseStatus.OK) {
         navigate('/aulas')
         setIsLoading(false)
         handleWriteSession(response.data)
+        setErrorMessage('')
       }
-    } catch (e) {
-      console.log(e)
+
+      if (response.status === HTTPResponseStatus.NOT_FOUND) {
+        setErrorMessage(response?.data?.message)
+        throw Error()
+      }
+    } catch (error) {
       setIsLoading(false)
     }
   }
@@ -77,34 +90,65 @@ export const Home = () => {
             <Stack gap="4" w="full">
               <Controller
                 name="username"
+                rules={{
+                  required: 'Preencha seu nome',
+                }}
                 control={control}
-                render={({ field }) => (
-                  <Field.Root>
-                    <Field.Label>Nome</Field.Label>
-                    <Input {...field} />
-                  </Field.Root>
-                )}
+                render={({ field, fieldState }) => {
+                  console.log(fieldState.error)
+                  return (
+                    <Field.Root invalid={!!errors.username}>
+                      <Field.Label>
+                        Nome<Text color={'red'}>*</Text>{' '}
+                        <Field.RequiredIndicator />
+                      </Field.Label>
+                      <Input {...field} />
+                      <Field.ErrorText>
+                        {errors.username?.message}
+                      </Field.ErrorText>
+                    </Field.Root>
+                  )
+                }}
               />
               <Controller
                 name="email"
                 control={control}
+                rules={{
+                  required: 'Preencha seu e-mail',
+                }}
                 render={({ field }) => (
-                  <Field.Root>
-                    <Field.Label>Email</Field.Label>
+                  <Field.Root invalid={!!errors.email}>
+                    <Field.Label>
+                      E-mail<Text color={'red'}>*</Text>{' '}
+                    </Field.Label>
                     <Input type="email" {...field} />
+                    <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
                   </Field.Root>
                 )}
               />
               <Controller
                 name="password"
                 control={control}
+                rules={{
+                  required: 'Preencha sua senha',
+                }}
                 render={({ field }) => (
-                  <Field.Root>
-                    <Field.Label>Senha</Field.Label>
+                  <Field.Root invalid={!!errors.password}>
+                    <Field.Label>
+                      Senha<Text color={'red'}>*</Text>
+                    </Field.Label>
                     <Input type="password" {...field} />
+                    <Field.ErrorText>
+                      {errors.password?.message}
+                    </Field.ErrorText>
                   </Field.Root>
                 )}
               />
+              <Box mt={'1'}>
+                {erroMessage && (
+                  <AlertComponent title={erroMessage} statusType={'error'} />
+                )}
+              </Box>
               {isRegister && (
                 <Controller
                   name="permissionType"
@@ -121,7 +165,15 @@ export const Home = () => {
             </Stack>
           </Card.Body>
           <Card.Footer justifyContent="flex-end">
-            <Button variant="outline">Cancelar</Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setErrorMessage('')
+                setIsRegister(false)
+              }}
+            >
+              Cancelar
+            </Button>
             <Button loading={isLoading} type="submit" bg={'green1'}>
               Entrar
             </Button>
@@ -132,8 +184,10 @@ export const Home = () => {
         <Text marginTop={'16px'} fontWeight={'bold'} fontSize={'md'}>
           Não é cadastrado? Faça o seu {''}
           <Link
+            color={'green2'}
             onClick={() => {
               setIsRegister(true)
+              setErrorMessage('')
             }}
           >
             {' '}
