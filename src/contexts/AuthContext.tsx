@@ -4,6 +4,7 @@ interface AuthContextData {
   handleWriteSession: (session: { user: any }) => void
   isTeacher: () => boolean
   sessionData: () => { username: string | null; userId: string | null }
+  clearSession: () => void
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -29,8 +30,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return { username, userId }
   }
 
+  const clearSession = () => {
+    sessionStorage.removeItem('username')
+    sessionStorage.removeItem('userId')
+    sessionStorage.removeItem('permissionType')
+  }
+
   return (
-    <AuthContext.Provider value={{ handleWriteSession, sessionData, isTeacher }}>
+    <AuthContext.Provider
+      value={{ handleWriteSession, sessionData, isTeacher, clearSession }}
+    >
       {children}
     </AuthContext.Provider>
   )

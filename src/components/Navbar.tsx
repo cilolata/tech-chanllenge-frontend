@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router'
 
 export const Navbar = () => {
   const navigate = useNavigate()
-  const { sessionData, isTeacher } = authContext()
+  const { sessionData, isTeacher, clearSession } = authContext()
   const name = sessionData()?.username
 
   const teacherPermission = isTeacher()
@@ -45,7 +45,14 @@ export const Navbar = () => {
           {teacherPermission && (
             <Link onClick={() => navigate('dashboard')}>Dashboard</Link>
           )}
-          <Link onClick={() => navigate('/')}>Sair</Link>
+          <Link
+            onClick={() => {
+              navigate('/')
+              clearSession()
+            }}
+          >
+            Sair
+          </Link>
         </HStack>
       </Flex>
     </Box>

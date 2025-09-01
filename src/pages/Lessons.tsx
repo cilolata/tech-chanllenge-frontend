@@ -2,7 +2,7 @@ import { CardLesson } from '@/components/CardLesson'
 import { InputSearch } from '@/components/InputSearch'
 import type { IPost } from '@/interfaces'
 import { getAllLessons } from '@/services/lessons'
-import { VStack, Flex } from '@chakra-ui/react'
+import { VStack, Flex, Skeleton } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 
 export const Lessons: React.FC = () => {
@@ -25,9 +25,17 @@ export const Lessons: React.FC = () => {
         justifyContent={'center'}
         paddingX={'24px'}
       >
-        {posts.map((item) => {
-          return <CardLesson {...item} />
-        })}
+        {!posts.length ? (
+          <>
+            <Skeleton height="200px" width="320px" />
+            <Skeleton height="200px" width="320px" />
+            <Skeleton height="200px" width="320px" />
+          </>
+        ) : (
+          posts.map((item) => {
+            return <CardLesson {...item} />
+          })
+        )}
       </Flex>
     </VStack>
   )

@@ -130,7 +130,7 @@ export const Home = () => {
                 name="password"
                 control={control}
                 rules={{
-                  required: 'Preencha sua senha',
+                  required:'Preencha sua senha',
                 }}
                 render={({ field }) => (
                   <Field.Root invalid={!!errors.password}>
