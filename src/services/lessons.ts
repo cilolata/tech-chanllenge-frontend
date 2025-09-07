@@ -61,4 +61,23 @@ export const getAllLessons = async () => {
       throw error
     }
   }
+
+  export const deleteLesson = async (id: any) => {
+    try {
+      const response = await fetch(`https://postai-latest.onrender.com/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      })
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+  
   

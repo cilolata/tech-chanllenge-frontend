@@ -59,7 +59,9 @@ export const RichTextEditor = ({ onClick }: IRichTextEditor) => {
         borderWidth={'thin'}
         overflow={'scroll'}
         outlineColor={'Highlight'}
-      ></Stack>
+        paddingX={'3'}
+        paddingTop={'2'}
+      />
       <Button
         size={'md'}
         maxWidth={'200px'}

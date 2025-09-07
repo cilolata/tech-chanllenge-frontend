@@ -1,4 +1,4 @@
-import { type ReactNode, useState, useEffect } from 'react'
+import { type ReactNode, useEffect } from 'react'
 import {
   Icon,
   Stack,
@@ -10,12 +10,11 @@ import {
   Skeleton,
   SkeletonText,
 } from '@chakra-ui/react'
-import { useParams } from 'react-router'
 import { FaChalkboardTeacher, FaRegCalendarAlt } from 'react-icons/fa'
 import { MdSubject } from 'react-icons/md'
-import type { IPost } from '@/interfaces'
-import { getLesson } from '@/services/lessons'
 import { dateFormatter } from '@/utils'
+import { useParams } from 'react-router'
+import useLessons from '@/hooks/useLessons'
 
 export const IconWithReactIcon: React.FC<{ children: ReactNode }> = ({
   children,
@@ -27,19 +26,13 @@ export const IconWithReactIcon: React.FC<{ children: ReactNode }> = ({
 
 export const Lesson = () => {
   const { id } = useParams()
-
-  const [post, setPost] = useState<IPost>()
-  const [teacherName, setTeacherName] = useState<string | undefined>('')
+  const { fetchLesson, post, teacherName, loadingLesson } = useLessons()
 
   useEffect(() => {
-    if (id) {
-      const fetch = async () => {
-        const res = await getLesson(id)
-        setPost(res.post)
-        setTeacherName(res.professor)
-      }
-      fetch()
+    const fetch = () => {
+      fetchLesson(id)
     }
+    fetch()
   }, [id])
 
   return (
@@ -50,7 +43,7 @@ export const Lesson = () => {
       paddingY={'16px'}
     >
       <Wrap>
-        <Skeleton asChild loading={!post}>
+        <Skeleton asChild loading={loadingLesson}>
           <Badge size="lg">
             <IconWithReactIcon>
               <FaChalkboardTeacher />
@@ -63,7 +56,7 @@ export const Lesson = () => {
             )}
           </Badge>
         </Skeleton>
-        <Skeleton asChild loading={!post}>
+        <Skeleton asChild loading={loadingLesson}>
           <Badge colorPalette="green" size="lg">
             <IconWithReactIcon>
               <MdSubject />
@@ -90,13 +83,13 @@ export const Lesson = () => {
           </Badge>
         </Skeleton>
       </Wrap>
-      {!post && <SkeletonText noOfLines={5}  />}
-        <VStack gap={'24px'} padding={'16px'} justifyContent={'center'}>
-          <Heading>{post?.title}</Heading>
-          {post?.content && (
-            <div dangerouslySetInnerHTML={{ __html: post?.content }} />
-          )}
-        </VStack>
+      {loadingLesson && <SkeletonText noOfLines={5} />}
+      <VStack gap={'24px'} padding={'16px'} justifyContent={'center'}>
+        <Heading>{post?.title}</Heading>
+        {post?.content && (
+          <div dangerouslySetInnerHTML={{ __html: post?.content }} />
+        )}
+      </VStack>
     </Stack>
   )
 }

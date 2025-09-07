@@ -5,10 +5,6 @@ import { useNavigate } from 'react-router'
 export const CardLesson = (item: IPost) => {
   const navigate = useNavigate()
 
-  const handleNavigationlesson = (id: number | undefined) => {
-    if (!id) return
-    navigate(`/aula/${id}`)
-  }
   return (
     <Stack gap="4" direction="row" wrap="wrap">
       <Card.Root width="320px">
@@ -17,7 +13,12 @@ export const CardLesson = (item: IPost) => {
           <Card.Description>{item.description}</Card.Description>
         </Card.Body>
         <Card.Footer justifyContent="flex-end">
-          <Button bg={'green1'} onClick={() => handleNavigationlesson(item.id)}>
+          <Button
+            bg={'green1'}
+            onClick={() => {
+              navigate(`/aula/${item.id}`)
+            }}
+          >
             Ver mais
           </Button>
         </Card.Footer>

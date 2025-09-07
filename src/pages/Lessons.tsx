@@ -1,20 +1,10 @@
 import { CardLesson } from '@/components/CardLesson'
 import { InputSearch } from '@/components/InputSearch'
-import type { IPost } from '@/interfaces'
-import { getAllLessons } from '@/services/lessons'
+import useLessons from '@/hooks/useLessons'
 import { VStack, Flex, Skeleton } from '@chakra-ui/react'
-import { useState, useEffect } from 'react'
 
 export const Lessons: React.FC = () => {
-  const [posts, setPosts] = useState<IPost[]>([])
-
-  useEffect(() => {
-    const fetch = async () => {
-      const response = await getAllLessons()
-      setPosts(response.posts)
-    }
-    fetch()
-  }, [])
+  const { loadingAllLessons, posts } = useLessons()
 
   return (
     <VStack as={'section'} gap={'24px'} padding={'24px'} marginTop={'64px'}>
@@ -25,7 +15,7 @@ export const Lessons: React.FC = () => {
         justifyContent={'center'}
         paddingX={'24px'}
       >
-        {!posts.length ? (
+        {loadingAllLessons ? (
           <>
             <Skeleton height="200px" width="320px" />
             <Skeleton height="200px" width="320px" />

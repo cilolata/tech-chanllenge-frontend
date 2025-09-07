@@ -11,10 +11,10 @@ export const system = createSystem(defaultConfig, config)
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
-      <ChakraProvider value={system}>
-        <Font />
-        <RoutingManager />
-      </ChakraProvider>
+        <ChakraProvider value={system}>
+          <Font />
+          <RoutingManager />
+        </ChakraProvider>
     </AuthProvider>
   </StrictMode>
 )
