@@ -45,6 +45,13 @@ export const Navbar = () => {
           {teacherPermission && (
             <Link onClick={() => navigate('dashboard')}>Dashboard</Link>
           )}
+             <Link
+            onClick={() => {
+              navigate('/aulas')
+            }}
+          >
+            Aulas
+          </Link>
           <Link
             onClick={() => {
               navigate('/')
