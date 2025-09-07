@@ -1,6 +1,12 @@
 import { authContext } from '@/contexts/AuthContext'
 import type { IPost } from '@/interfaces'
-import { deleteLesson, getAllLessons, getLesson, postLesson } from '@/services/lessons'
+import {
+  deleteLesson,
+  getAllLessons,
+  getLesson,
+  postLesson,
+  putLesson,
+} from '@/services/lessons'
 import { useEffect, useState } from 'react'
 
 const useLessons = () => {
@@ -14,7 +20,7 @@ const useLessons = () => {
   const { sessionData, isTeacher } = authContext()
   const userId = sessionData().userId
 
-  const fetchAllLessons = async () => {
+  const handleLessons = async () => {
     setLoadingAllLessons(true)
     try {
       const response = await getAllLessons()
@@ -33,7 +39,7 @@ const useLessons = () => {
     }
   }
 
-  const fetchLesson = async (id?: string | number) => {
+  const handleGetLesson = async (id?: string | number) => {
     setLoadingLesson(true)
     try {
       if (!id) throw Error()
@@ -41,25 +47,35 @@ const useLessons = () => {
       setPost(res.post)
       setTeacherName(res.professor)
       setLoadingLesson(false)
+      return res.post
     } catch {
       setLoadingLesson(false)
     }
   }
 
-  const createLesson = async (data: any) => {
+  const handleCreateLesson = async (data: any) => {
     try {
       const res = await postLesson(data)
-      fetchAllLessons()
+      handleLessons()
       return res
     } catch (err) {
       console.log(err)
     }
   }
 
-  const deleteOneLesson = async (id: any) => {
+  const handlePutLesson = async (id: any, data: any) => {
+    try {
+      await putLesson(id, data)
+      handleLessons()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleDeleteLesson = async (id: any) => {
     try {
       await deleteLesson(id)
-      fetchAllLessons()
+      handleLessons()
     } catch (err) {
       console.log(err)
     }
@@ -67,7 +83,7 @@ const useLessons = () => {
 
   useEffect(() => {
     const fetch = () => {
-      fetchAllLessons()
+      handleLessons()
     }
     fetch()
   }, [])
@@ -78,11 +94,12 @@ const useLessons = () => {
     teacherName,
     loadingAllLessons,
     loadingLesson,
-    fetchLesson,
-    fetchAllLessons,
     teacherLessons,
-    deleteOneLesson,
-    createLesson
+    handleGetLesson,
+    handleLessons,
+    handleDeleteLesson,
+    handleCreateLesson,
+    handlePutLesson,
   }
 }
 

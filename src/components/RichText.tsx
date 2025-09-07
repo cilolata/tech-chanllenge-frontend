@@ -4,14 +4,21 @@ import { useEffect, useRef, useState } from 'react'
 
 interface IRichTextEditor {
   onClick: (value?: string) => void
+  value?: any
 }
 
-export const RichTextEditor = ({ onClick }: IRichTextEditor) => {
+export const RichTextEditor = ({ onClick, value }: IRichTextEditor) => {
   const editorRef = useRef<HTMLDivElement>(null)
   const [saved, setSaved] = useState(false)
 
   const { handleBoldFormat, handleItalicFormat, handleUnderlineFormat } =
     useRichText()
+
+  useEffect(() => {
+    if(value) {
+      editorRef.current!.innerHTML = value ?? ''
+    }
+  }, [value])
 
   const handleSave = () => {
     const content = editorRef.current?.innerHTML
@@ -71,8 +78,8 @@ export const RichTextEditor = ({ onClick }: IRichTextEditor) => {
       <Button
         size={'md'}
         maxWidth={'200px'}
-        variant={'surface'}
-        color={'gray1'}
+        bg={'pink'}
+        color={'gray2'}
         borderRadius={'sm'}
         marginRight={'1'}
         onClick={handleSave}

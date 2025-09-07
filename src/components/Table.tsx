@@ -4,14 +4,12 @@ import { Flex, Spinner, Text, Table, VStack, Button } from '@chakra-ui/react'
 import { PiTrash } from 'react-icons/pi'
 import { TiEdit } from 'react-icons/ti'
 import { IoDocumentTextOutline } from 'react-icons/io5'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const TableComponent = () => {
-  const { deleteOneLesson, loadingAllLessons, teacherLessons } = useLessons()
+  const navigate = useNavigate()
 
-  const handleDelete = (id: number | undefined) => {
-    deleteOneLesson(id)
-  }
+  const { handleDeleteLesson, loadingAllLessons, teacherLessons } = useLessons()
 
   if (teacherLessons.length === 0 && !loadingAllLessons) {
     return (
@@ -76,9 +74,14 @@ export const TableComponent = () => {
                 <Table.Cell textAlign="end">
                   {dateFormatter(item.updated_at)}
                 </Table.Cell>
-                <Table.Cell textAlign="end" onClick={() => {}}>
+                <Table.Cell textAlign="end">
                   <Flex justifyContent={'end'}>
-                    <Button variant={'ghost'}>
+                    <Button
+                      variant={'ghost'}
+                      onClick={() => {
+                        navigate(`/aula/editar/${item.id}`)
+                      }}
+                    >
                       <TiEdit color="#6FCF97" size={24} />
                     </Button>
                   </Flex>
@@ -88,7 +91,7 @@ export const TableComponent = () => {
                     <Button
                       variant={'ghost'}
                       onClick={() => {
-                        handleDelete(item.id)
+                        handleDeleteLesson(item.id)
                       }}
                     >
                       <PiTrash color="b30000" size={24} />

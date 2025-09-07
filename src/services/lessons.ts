@@ -63,6 +63,27 @@ export const getAllLessons = async () => {
     }
   }
 
+   
+  export const putLesson = async (postId: any, data: any) => {
+    try {
+      const response = await fetch(`https://postai-latest.onrender.com/posts/${postId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify(data),
+      })
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+
   export const deleteLesson = async (id: any) => {
     try {
       const response = await fetch(`https://postai-latest.onrender.com/posts/${id}`, {

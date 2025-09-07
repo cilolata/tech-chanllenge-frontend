@@ -16,6 +16,7 @@ export const RoutingManager: React.FC = () => {
           <Route path="aula/:id" element={<Lesson />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="aula/criar" element={<LessonForm />} />
+          <Route path="aula/editar/:id" element={<LessonForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
