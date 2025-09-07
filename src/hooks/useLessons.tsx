@@ -1,6 +1,6 @@
 import { authContext } from '@/contexts/AuthContext'
 import type { IPost } from '@/interfaces'
-import { deleteLesson, getAllLessons, getLesson } from '@/services/lessons'
+import { deleteLesson, getAllLessons, getLesson, postLesson } from '@/services/lessons'
 import { useEffect, useState } from 'react'
 
 const useLessons = () => {
@@ -46,6 +46,16 @@ const useLessons = () => {
     }
   }
 
+  const createLesson = async (data: any) => {
+    try {
+      const res = await postLesson(data)
+      fetchAllLessons()
+      return res
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const deleteOneLesson = async (id: any) => {
     try {
       await deleteLesson(id)
@@ -72,6 +82,7 @@ const useLessons = () => {
     fetchAllLessons,
     teacherLessons,
     deleteOneLesson,
+    createLesson
   }
 }
 

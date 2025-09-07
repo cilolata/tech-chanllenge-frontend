@@ -1,22 +1,40 @@
 import RichTextEditor from '@/components/RichText'
-import { postLesson } from '@/services/lessons'
+import { authContext } from '@/contexts/AuthContext'
+import useLessons from '@/hooks/useLessons'
+import { HTTPResponseStatus } from '@/interfaces'
 import { Button, Flex, Input, Stack, Text } from '@chakra-ui/react'
+import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { useNavigate } from 'react-router'
 
 export const LessonForm = () => {
+  const [loading, setLoading] = useState(false)
+  const { sessionData } = authContext()
+  const { createLesson } = useLessons()
+  const navigate = useNavigate()
+
+  const userId = sessionData().userId
+
   const { control, setValue, handleSubmit } = useForm({
     defaultValues: {
       title: '',
       description: '',
       content: '',
       subject: '',
-      user_id: 3, //mudar para dinamicamente pegar o id da sessão
+      user_id: userId ?? '',
     },
   })
 
   const onSubmit = async (data: any) => {
-   const res = await postLesson(data)
-   console.log(res)
+    setLoading(true)
+    try {
+      const res = await createLesson(data)
+      if (res?.status === HTTPResponseStatus.CREATED) {
+        navigate('/dashboard')
+      }
+    } catch {
+      setLoading(false)
+    }
   }
 
   return (
@@ -88,6 +106,7 @@ export const LessonForm = () => {
             Cancelar
           </Button>
           <Button
+            loading={loading}
             color={'gray5'}
             w={['full', '200px']}
             size="lg"

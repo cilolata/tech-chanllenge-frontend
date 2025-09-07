@@ -44,6 +44,10 @@ export const Font = () => (
       font-weight: normal;
       font-style: normal;
       }
+
+      a {
+        cursor: pointer
+      }
     `}
   />
 )

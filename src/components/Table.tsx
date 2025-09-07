@@ -1,9 +1,10 @@
 import useLessons from '@/hooks/useLessons'
 import { dateFormatter } from '@/utils'
-import { Flex, Spinner, Text, Table, VStack } from '@chakra-ui/react'
+import { Flex, Spinner, Text, Table, VStack, Button } from '@chakra-ui/react'
 import { PiTrash } from 'react-icons/pi'
 import { TiEdit } from 'react-icons/ti'
 import { IoDocumentTextOutline } from 'react-icons/io5'
+import { Link } from 'react-router-dom'
 
 export const TableComponent = () => {
   const { deleteOneLesson, loadingAllLessons, teacherLessons } = useLessons()
@@ -12,7 +13,7 @@ export const TableComponent = () => {
     deleteOneLesson(id)
   }
 
-  if (teacherLessons.length === 0) {
+  if (teacherLessons.length === 0 && !loadingAllLessons) {
     return (
       <VStack w={'full'} h={'400px'} align={'center'} justifyContent={'center'}>
         <IoDocumentTextOutline size={'100'} />
@@ -59,8 +60,16 @@ export const TableComponent = () => {
           <Table.Body>
             {teacherLessons?.map((item) => (
               <Table.Row key={item.id}>
-                <Table.Cell>{item.title}</Table.Cell>
-                <Table.Cell>{item.description}</Table.Cell>
+                <Table.Cell color="green.600">
+                  <Link to={{ pathname: `/aula/${item.id}` }}>
+                    {item.title}
+                  </Link>
+                </Table.Cell>
+                <Table.Cell color="green.600">
+                  <Link to={{ pathname: `/aula/${item.id}` }}>
+                    {item.description}
+                  </Link>
+                </Table.Cell>
                 <Table.Cell textAlign="end">
                   {dateFormatter(item.created_at)}
                 </Table.Cell>
@@ -69,17 +78,21 @@ export const TableComponent = () => {
                 </Table.Cell>
                 <Table.Cell textAlign="end" onClick={() => {}}>
                   <Flex justifyContent={'end'}>
-                    <TiEdit color="#6FCF97" size={24} />
+                    <Button variant={'ghost'}>
+                      <TiEdit color="#6FCF97" size={24} />
+                    </Button>
                   </Flex>
                 </Table.Cell>
-                <Table.Cell
-                  textAlign="end"
-                  onClick={() => {
-                    handleDelete(item.id)
-                  }}
-                >
+                <Table.Cell textAlign="end">
                   <Flex justifyContent={'end'}>
-                    <PiTrash color="b30000" size={24} />
+                    <Button
+                      variant={'ghost'}
+                      onClick={() => {
+                        handleDelete(item.id)
+                      }}
+                    >
+                      <PiTrash color="b30000" size={24} />
+                    </Button>
                   </Flex>
                 </Table.Cell>
               </Table.Row>

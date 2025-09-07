@@ -45,21 +45,25 @@ export const Navbar = () => {
           {teacherPermission && (
             <Link onClick={() => navigate('dashboard')}>Dashboard</Link>
           )}
-             <Link
-            onClick={() => {
-              navigate('/aulas')
-            }}
-          >
-            Aulas
-          </Link>
-          <Link
-            onClick={() => {
-              navigate('/')
-              clearSession()
-            }}
-          >
-            Sair
-          </Link>
+          {sessionData().userId && (
+            <>
+              <Link
+                onClick={() => {
+                  navigate('/aulas')
+                }}
+              >
+                Aulas
+              </Link>
+              <Link
+                onClick={() => {
+                  navigate('/')
+                  clearSession()
+                }}
+              >
+                Sair
+              </Link>
+            </>
+          )}
         </HStack>
       </Flex>
     </Box>

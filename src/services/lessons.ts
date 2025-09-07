@@ -57,6 +57,7 @@ export const getAllLessons = async () => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
+      return response
     } catch (error) {
       throw error
     }

@@ -1,6 +1,6 @@
 import useRichText from '@/hooks/useRichText'
 import { Button, Flex, Stack, Text } from '@chakra-ui/react'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface IRichTextEditor {
   onClick: (value?: string) => void
@@ -8,6 +8,7 @@ interface IRichTextEditor {
 
 export const RichTextEditor = ({ onClick }: IRichTextEditor) => {
   const editorRef = useRef<HTMLDivElement>(null)
+  const [saved, setSaved] = useState(false)
 
   const { handleBoldFormat, handleItalicFormat, handleUnderlineFormat } =
     useRichText()
@@ -15,7 +16,12 @@ export const RichTextEditor = ({ onClick }: IRichTextEditor) => {
   const handleSave = () => {
     const content = editorRef.current?.innerHTML
     onClick(content)
+    setSaved(true)
   }
+
+  useEffect(() => {
+      setSaved(false)
+  }, [])
 
   return (
     <Stack h={'full'} w={'full'}>
@@ -71,7 +77,7 @@ export const RichTextEditor = ({ onClick }: IRichTextEditor) => {
         marginRight={'1'}
         onClick={handleSave}
       >
-        Salvar texto
+        {saved ? 'Texto salvo' : 'Salvar texto'}
       </Button>
     </Stack>
   )
