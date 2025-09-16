@@ -1,15 +1,15 @@
-// src/pages/PostsList.tsx
+
 import { useEffect, useMemo, useState } from "react";
 import { Input, Stack, Card, CardBody, Text, Button, SimpleGrid, Spinner, Center } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { api } from "@/services/api";
 
-// Ajuste aqui se seu back usa campos diferentes
+
 type Post = {
   id: number | string;
   title?: string;
   name?: string;
-  author?: string;// src/pages/PostsList.tsx
+  author?: string;
 import { useEffect, useState } from "react";
 import { Input, Stack, Card, CardBody, Text, Button, SimpleGrid, Spinner, Center } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -104,7 +104,7 @@ export default function PostsList() {
   const displayAuthor = (p: Post) => p.author ?? p.createdBy ?? "—";
   const displayDesc = (p: Post) => p.description ?? "";
 
-  // Busca local (title/name, author/createdBy, description, content)
+  
   const filtered = useMemo(() => {
     const nq = norm(q);
     if (!nq) return all;
@@ -137,7 +137,7 @@ export default function PostsList() {
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
-        <Button onClick={() => { /* filtragem é em tempo real; botão opcional */ }} isDisabled={loading}>
+        <Button onClick={() => {  }} isDisabled={loading}>
           Buscar
         </Button>
         {q && (
