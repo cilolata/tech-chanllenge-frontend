@@ -17,7 +17,7 @@
 
 ## 🎯 Objetivo
 
-Este repositório contém o **frontend** do projeto **Postaí**, parte do Tech Challenge Fase 3 da FIAP:contentReference[oaicite:1]{index=1}.  
+Este repositório contém o **frontend** do projeto **Postaí**, parte do Tech Challenge Fase 3 da FIAP.  
 O objetivo é entregar uma interface **responsiva, acessível e intuitiva**, permitindo a interação com os endpoints REST do backend:
 
 - 👩‍🏫 Professores → Criar, editar e excluir postagens.
@@ -45,13 +45,13 @@ A aplicação segue uma arquitetura baseada em **camadas e organização modular
 
 ```mermaid
 flowchart TB
-    A[Usuário (Aluno/Professor)] --> B[Interface React]
-    B --> C[Rotas (React Router)]
-    C --> D[Páginas (pages/)]
-    D --> E[Componentes (components/)]
-    D --> F[Layout (layout/)]
-    D --> G[Hooks & Contexts]
-    G --> H[Gerenciamento de Estado]
-    D --> I[Axios Service → API Postaí]
-    I --> J[(Backend - Postaí API)]
+  A["Usuário (Aluno/Professor)"] --> B["Interface React"]
+  B --> C["Rotas (React Router)"]
+  C --> D["Páginas (pages/)"]
+  D --> E["Componentes (components/)"]
+  D --> F["Layout (layout/)"]
+  D --> G["Hooks & Contexts"]
+  G --> H["Gerenciamento de Estado"]
+  D --> I["Axios Service / API Postaí"]
+  I --> J["Backend - Postaí API"]
 ```
