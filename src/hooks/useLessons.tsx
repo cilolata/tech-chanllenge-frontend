@@ -6,8 +6,9 @@ import {
   getLesson,
   postLesson,
   putLesson,
+  searchLesson,
 } from '@/services/lessons'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const useLessons = () => {
   const [posts, setPosts] = useState<IPost[]>([])
@@ -26,7 +27,7 @@ const useLessons = () => {
       const response = await getAllLessons()
       setPosts(response.posts)
 
-      if (isTeacher()) {
+      if (isTeacher) {
         setTeacherLessons(
           response.posts.filter(
             (item: IPost) => Number(item.user_id) === Number(userId)
@@ -50,6 +51,21 @@ const useLessons = () => {
       return res.post
     } catch {
       setLoadingLesson(false)
+    }
+  }
+
+  const handleSearchLesson = async (search?: string) => {
+    setLoadingAllLessons(true)
+    try {
+      if (!search) {
+        handleLessons()
+      } else {
+        const res = await searchLesson(search)
+        setPosts(res.posts)
+      }
+      setLoadingAllLessons(false)
+    } catch {
+      setLoadingAllLessons(false)
     }
   }
 
@@ -81,13 +97,6 @@ const useLessons = () => {
     }
   }
 
-  useEffect(() => {
-    const fetch = () => {
-      handleLessons()
-    }
-    fetch()
-  }, [])
-
   return {
     posts,
     post,
@@ -95,8 +104,9 @@ const useLessons = () => {
     loadingAllLessons,
     loadingLesson,
     teacherLessons,
-    handleGetLesson,
     handleLessons,
+    handleSearchLesson,
+    handleGetLesson,
     handleDeleteLesson,
     handleCreateLesson,
     handlePutLesson,

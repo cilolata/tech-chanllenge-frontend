@@ -1,8 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ChakraProvider, createSystem, defaultConfig } from '@chakra-ui/react'
-import { Font, config } from '@/global/global.tsx'
-import './global/global.css'
+import { Font, config } from '@/config/global'
+import './config/global.css'
 import { RoutingManager } from '@/routes/index.tsx'
 import { AuthProvider } from './contexts/AuthContext'
 
