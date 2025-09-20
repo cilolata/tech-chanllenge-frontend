@@ -6,7 +6,6 @@ import {
   postLesson,
   putLesson,
   searchLesson,
-  searchLesson,
 } from '@/services/lessons'
 import { useState } from 'react'
 
