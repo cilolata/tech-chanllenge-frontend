@@ -8,8 +8,6 @@ export const Navbar = () => {
   const { sessionData, isTeacher, clearSession } = authContext()
   const name = sessionData()?.username
 
-  const teacherPermission = isTeacher()
-
   return (
     <Box
       w={'full'}
@@ -42,7 +40,7 @@ export const Navbar = () => {
           {name && <Text>{name}</Text>}
         </HStack>
         <HStack gap={'16px'}>
-          {teacherPermission && (
+          {isTeacher && (
             <Link onClick={() => navigate('dashboard')}>Dashboard</Link>
           )}
           {sessionData().userId && (
