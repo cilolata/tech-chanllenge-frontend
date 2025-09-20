@@ -2,10 +2,22 @@ import { CardLesson } from '@/components/CardLesson'
 import { InputSearch } from '@/components/InputSearch'
 import useLessons from '@/hooks/useLessons'
 import { VStack, Flex, Skeleton, Text, Stack } from '@chakra-ui/react'
+import { useEffect } from 'react'
 import { IoDocumentTextOutline } from 'react-icons/io5'
 
 export const Lessons: React.FC = () => {
-  const { loadingAllLessons, posts } = useLessons()
+  const { loadingAllLessons, posts, handleSearchLesson, handleLessons } = useLessons()
+
+  const handleSearch = async (search?: string) => {
+     await handleSearchLesson(search)
+  }
+
+  useEffect(() => {
+    const fetch = () => {
+      handleLessons()
+    }
+    fetch()
+  }, [])
 
   return (
     <Stack>
@@ -13,14 +25,14 @@ export const Lessons: React.FC = () => {
         Painel de aulas
       </Text>
       <VStack as={'section'} gap={'24px'} padding={'24px'}>
-        {posts.length === 0 && !loadingAllLessons ? (
+        {posts?.length === 0 && !loadingAllLessons ? (
           <>
             <IoDocumentTextOutline size={'100'} />
             <Text fontSize={'lg'}>Sem aulas</Text>
           </>
         ) : (
           <>
-            <InputSearch />
+            <InputSearch onChange={e => handleSearch(e.target.value)} />
             <Flex
               wrap={'wrap'}
               gap={'16px'}
@@ -34,7 +46,7 @@ export const Lessons: React.FC = () => {
                   <Skeleton height="200px" width="320px" />
                 </>
               ) : (
-                posts.map((item) => {
+                posts?.map((item) => {
                   return <CardLesson {...item} />
                 })
               )}
