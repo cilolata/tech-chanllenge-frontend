@@ -1,4 +1,3 @@
-import { authContext } from '@/contexts/AuthContext'
 import type { IPost } from '@/interfaces'
 import {
   deleteLesson,
@@ -14,27 +13,17 @@ const useLessons = () => {
   const [posts, setPosts] = useState<IPost[]>([])
   const [post, setPost] = useState<IPost>()
   const [teacherName, setTeacherName] = useState<string | undefined>('')
-  const [teacherLessons, setTeacherLessons] = useState<IPost[]>([])
   const [loadingAllLessons, setLoadingAllLessons] = useState<boolean>(false)
   const [loadingLesson, setLoadingLesson] = useState<boolean>(false)
-
-  const { sessionData, isTeacher } = authContext()
-  const userId = sessionData().userId
+  const [loadingDashboard, setLoadingDashboard] = useState<boolean>(false)
 
   const handleLessons = async () => {
     setLoadingAllLessons(true)
     try {
       const response = await getAllLessons()
       setPosts(response.posts)
-
-      if (isTeacher) {
-        setTeacherLessons(
-          response.posts.filter(
-            (item: IPost) => Number(item.user_id) === Number(userId)
-          )
-        )
-      }
       setLoadingAllLessons(false)
+      setLoadingDashboard(false)
     } catch {
       setLoadingAllLessons(false)
     }
@@ -58,7 +47,7 @@ const useLessons = () => {
     setLoadingAllLessons(true)
     try {
       if (!search) {
-        handleLessons()
+        await handleLessons()
       } else {
         const res = await searchLesson(search)
         setPosts(res.posts)
@@ -71,8 +60,9 @@ const useLessons = () => {
 
   const handleCreateLesson = async (data: any) => {
     try {
+      setLoadingDashboard(true)
       const res = await postLesson(data)
-      handleLessons()
+      await handleLessons()
       return res
     } catch (err) {
       console.log(err)
@@ -81,8 +71,9 @@ const useLessons = () => {
 
   const handlePutLesson = async (id: any, data: any) => {
     try {
+      setLoadingDashboard(true)
       await putLesson(id, data)
-      handleLessons()
+      await handleLessons()
     } catch (err) {
       console.log(err)
     }
@@ -90,12 +81,22 @@ const useLessons = () => {
 
   const handleDeleteLesson = async (id: any) => {
     try {
+      setLoadingDashboard(true)
       await deleteLesson(id)
-      handleLessons()
+      await handleLessons()
     } catch (err) {
       console.log(err)
+      setLoadingDashboard(false)
     }
   }
+
+
+  useEffect(() => {
+    const fetch = async () => {
+      await handleLessons()
+    }
+    fetch()
+  }, [])
 
   return {
     posts,
@@ -103,7 +104,7 @@ const useLessons = () => {
     teacherName,
     loadingAllLessons,
     loadingLesson,
-    teacherLessons,
+    loadingDashboard,
     handleLessons,
     handleSearchLesson,
     handleGetLesson,

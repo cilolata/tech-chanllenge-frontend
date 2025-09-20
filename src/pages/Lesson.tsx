@@ -26,7 +26,8 @@ export const IconWithReactIcon: React.FC<{ children: ReactNode }> = ({
 
 export const Lesson = () => {
   const { id } = useParams()
-  const { handleGetLesson, post, teacherName, loadingLesson } = useLessons()
+  const { post, teacherName, loadingLesson, handleGetLesson } = useLessons()
+
 
   useEffect(() => {
     const fetch = () => {
