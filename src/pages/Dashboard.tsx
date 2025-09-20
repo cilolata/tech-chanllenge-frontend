@@ -25,7 +25,9 @@ export const Dashboard = () => {
           Criar aula
         </Button>
       </HStack>
-      <TableComponent />
+      <TableComponent
+      />
     </Stack>
   )
 }
+

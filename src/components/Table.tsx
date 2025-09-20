@@ -3,22 +3,17 @@ import { dateFormatter } from '@/utils'
 import { Flex, Spinner, Text, Table, VStack, Button } from '@chakra-ui/react'
 import { PiTrash } from 'react-icons/pi'
 import { TiEdit } from 'react-icons/ti'
-import { IoDocumentTextOutline } from 'react-icons/io5'
 import { Link, useNavigate } from 'react-router-dom'
+import { authContext } from '@/contexts/AuthContext'
+import { IoDocumentTextOutline } from 'react-icons/io5'
 
 export const TableComponent = () => {
   const navigate = useNavigate()
 
-  const { handleDeleteLesson, loadingAllLessons, teacherLessons } = useLessons()
+  const { handleDeleteLesson, loadingDashboard, posts } = useLessons()
 
-  if (teacherLessons.length === 0 && !loadingAllLessons) {
-    return (
-      <VStack w={'full'} h={'400px'} align={'center'} justifyContent={'center'}>
-        <IoDocumentTextOutline size={'100'} />
-        <Text fontSize={'lg'}>Sem aulas criadas</Text>
-      </VStack>
-    )
-  }
+  const { sessionData } = authContext()
+  const userId = sessionData().userId
 
   return (
     <Flex
@@ -28,7 +23,21 @@ export const TableComponent = () => {
       align={'center'}
       padding={'32px 64px'}
     >
-      {loadingAllLessons ? (
+      {posts.filter((item) => Number(item.user_id) === Number(userId))
+        .length === 0 &&
+        !loadingDashboard && (
+          <VStack
+            w={'full'}
+            h={'400px'}
+            align={'center'}
+            justifyContent={'center'}
+          >
+            <IoDocumentTextOutline size={'100'} />
+            <Text fontSize={'lg'}>Sem aulas criadas</Text>
+          </VStack>
+        )}
+
+      {loadingDashboard ? (
         <VStack
           colorPalette="teal"
           h={'400px'}
@@ -56,50 +65,54 @@ export const TableComponent = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {teacherLessons?.map((item) => (
-              <Table.Row key={item.id}>
-                <Table.Cell color="green.600">
-                  <Link to={{ pathname: `/aula/${item.id}` }}>
-                    {item.title}
-                  </Link>
-                </Table.Cell>
-                <Table.Cell color="green.600">
-                  <Link to={{ pathname: `/aula/${item.id}` }}>
-                    {item.description}
-                  </Link>
-                </Table.Cell>
-                <Table.Cell textAlign="end">
-                  {dateFormatter(item.created_at)}
-                </Table.Cell>
-                <Table.Cell textAlign="end">
-                  {dateFormatter(item.updated_at)}
-                </Table.Cell>
-                <Table.Cell textAlign="end">
-                  <Flex justifyContent={'end'}>
-                    <Button
-                      variant={'ghost'}
-                      onClick={() => {
-                        navigate(`/aula/editar/${item.id}`)
-                      }}
-                    >
-                      <TiEdit color="#6FCF97" size={24} />
-                    </Button>
-                  </Flex>
-                </Table.Cell>
-                <Table.Cell textAlign="end">
-                  <Flex justifyContent={'end'}>
-                    <Button
-                      variant={'ghost'}
-                      onClick={() => {
-                        handleDeleteLesson(item.id)
-                      }}
-                    >
-                      <PiTrash color="b30000" size={24} />
-                    </Button>
-                  </Flex>
-                </Table.Cell>
-              </Table.Row>
-            ))}
+            {posts?.map((item) => {
+              if (Number(item.user_id) === Number(userId)) {
+                return (
+                  <Table.Row key={item.id}>
+                    <Table.Cell color="green.600">
+                      <Link to={{ pathname: `/aula/${item.id}` }}>
+                        {item.title}
+                      </Link>
+                    </Table.Cell>
+                    <Table.Cell color="green.600">
+                      <Link to={{ pathname: `/aula/${item.id}` }}>
+                        {item.description}
+                      </Link>
+                    </Table.Cell>
+                    <Table.Cell textAlign="end">
+                      {dateFormatter(item.created_at)}
+                    </Table.Cell>
+                    <Table.Cell textAlign="end">
+                      {dateFormatter(item.updated_at)}
+                    </Table.Cell>
+                    <Table.Cell textAlign="end">
+                      <Flex justifyContent={'end'}>
+                        <Button
+                          variant={'ghost'}
+                          onClick={() => {
+                            navigate(`/aula/editar/${item.id}`)
+                          }}
+                        >
+                          <TiEdit color="#6FCF97" size={24} />
+                        </Button>
+                      </Flex>
+                    </Table.Cell>
+                    <Table.Cell textAlign="end">
+                      <Flex justifyContent={'end'}>
+                        <Button
+                          variant={'ghost'}
+                          onClick={async () => {
+                            await handleDeleteLesson(item.id)
+                          }}
+                        >
+                          <PiTrash color="b30000" size={24} />
+                        </Button>
+                      </Flex>
+                    </Table.Cell>
+                  </Table.Row>
+                )
+              }
+            })}
           </Table.Body>
         </Table.Root>
       )}

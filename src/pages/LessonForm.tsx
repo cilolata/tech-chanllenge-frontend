@@ -26,7 +26,7 @@ export const LessonForm = () => {
 
   const userId = sessionData().userId
 
-  const { control, setValue, handleSubmit, getValues } = useForm({
+  const { control, setValue, handleSubmit } = useForm({
     defaultValues: {
       title: '',
       description: '',
