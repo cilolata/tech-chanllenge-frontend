@@ -50,7 +50,7 @@ flowchart TB
   E --> J["Hooks"]
   D --> J["Hooks"]
   I --> E["Componentes"]
-  J --> G["Service / API Postaí"]
-  C --> I["Contexts"]
+  J --> G["Services / API Postaí"]
+  C --> I["Contextos"]
 
 ```
