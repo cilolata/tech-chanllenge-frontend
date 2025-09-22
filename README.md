@@ -25,9 +25,9 @@ O objetivo é entregar uma interface **responsiva, acessível e intuitiva**, per
 
 ---
 
-## Setup Inicial
+## Setup
 
-- yarn i
+- yarn install
 - yarn dev
 
 ## 🧰 Funcionalidades
