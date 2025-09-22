@@ -38,7 +38,7 @@ O objetivo é entregar uma interface **responsiva, acessível e intuitiva**, per
 | **/aulas**                | Exibe todas as aulas.                                                   |
 | **/aula/:id**             | Acessa a aula escolhida.                                                |
 | **/aula/criar**           | Cria uma nova aula.                                                     |
-| **/dashboard**            | Dashboard do professor (visualiza, edita, deleta e cria aula.           |
+| **/dashboard**            | Dashboard do professor (visualiza, edita, deleta e cria aula.)           |
 
 
 ---
