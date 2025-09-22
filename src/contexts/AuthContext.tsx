@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 interface AuthContextData {
   handleWriteSession: (session: { user: any }) => void
@@ -10,6 +10,8 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isTeacher, setIsTeacher] = useState(false)
+
   const handleWriteSession = (session: { user: any }) => {
     const { user } = session
     if (user) {
@@ -19,14 +21,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
-  const isTeacher = useMemo(() => {
-    const permissionType = sessionStorage.getItem('permissionType')
-    return !!(permissionType && permissionType?.toString() === '1')
-  }, [])
-
   const sessionData = () => {
     const username = sessionStorage.getItem('username')
     const userId = sessionStorage.getItem('userId')
+    const permissionType = sessionStorage.getItem('permissionType')
+    setIsTeacher(!!permissionType && permissionType?.toString() === '1')
     return { username, userId }
   }
 

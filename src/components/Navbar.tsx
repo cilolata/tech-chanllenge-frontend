@@ -40,7 +40,7 @@ export const Navbar = () => {
           {name && <Text>{name}</Text>}
         </HStack>
         <HStack gap={'16px'}>
-          {isTeacher() && (
+          {isTeacher && (
             <Link onClick={() => navigate('dashboard')}>Dashboard</Link>
           )}
           {sessionData().userId && (

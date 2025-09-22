@@ -7,7 +7,7 @@ import {
   putLesson,
   searchLesson,
 } from '@/services/lessons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useLessons = () => {
   const [posts, setPosts] = useState<IPost[]>([])
