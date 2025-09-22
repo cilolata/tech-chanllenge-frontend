@@ -7,6 +7,7 @@ export interface IPost {
     created_at?: Date;
     updated_at?: Date | string;
     user_id: number;
+    teacher?: string
   }
   
   export interface IPostUpdate {

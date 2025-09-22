@@ -147,7 +147,7 @@ export const LessonForm = () => {
               size="lg"
               borderColor={'gray5'}
               variant={'ghost'}
-            >
+              onClick={() => navigate('/dashboard')}>
               Cancelar
             </Button>
             <Button

@@ -11,6 +11,7 @@ export const CardLesson = (item: IPost) => {
         <Card.Body gap="2">
           <Card.Title mb="2">{item.title}</Card.Title>
           <Card.Description>{item.description}</Card.Description>
+          <Card.Description>Autor: {item.teacher}</Card.Description>
         </Card.Body>
         <Card.Footer justifyContent="flex-end">
           <Button
