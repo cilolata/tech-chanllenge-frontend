@@ -15,6 +15,19 @@ export const TableComponent = () => {
   const { sessionData } = authContext()
   const userId = sessionData().userId
 
+  if (
+    posts.filter((item) => Number(item.user_id) === Number(userId)).length ===
+      0 &&
+    !loadingDashboard
+  ) {
+    return (
+      <VStack w={'full'} h={'400px'} align={'center'} justifyContent={'center'}>
+        <IoDocumentTextOutline size={'100'} />
+        <Text fontSize={'lg'}>Sem aulas criadas</Text>
+      </VStack>
+    )
+  }
+
   return (
     <Flex
       direction={'column'}
@@ -23,20 +36,6 @@ export const TableComponent = () => {
       align={'center'}
       padding={'32px 64px'}
     >
-      {posts.filter((item) => Number(item.user_id) === Number(userId))
-        .length === 0 &&
-        !loadingDashboard && (
-          <VStack
-            w={'full'}
-            h={'400px'}
-            align={'center'}
-            justifyContent={'center'}
-          >
-            <IoDocumentTextOutline size={'100'} />
-            <Text fontSize={'lg'}>Sem aulas criadas</Text>
-          </VStack>
-        )}
-
       {loadingDashboard ? (
         <VStack
           colorPalette="teal"
