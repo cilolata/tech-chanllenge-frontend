@@ -1,4 +1,3 @@
-import RichTextEditor from '@/components/RichText'
 import { authContext } from '@/contexts/AuthContext'
 import useLessons from '@/hooks/useLessons'
 import {
@@ -8,6 +7,7 @@ import {
   Spinner,
   Stack,
   Text,
+  Textarea,
   VStack,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
@@ -17,7 +17,6 @@ import { useNavigate, useParams } from 'react-router'
 export const LessonForm = () => {
   const [loading, setLoading] = useState(false)
   const [loadingEdit, setLoadingEdit] = useState(false)
-  const [disableButton, setDisabledButton] = useState(true)
 
   const { sessionData } = authContext()
   const { handleCreateLesson, handlePutLesson, handleGetLesson } = useLessons()
@@ -47,7 +46,6 @@ export const LessonForm = () => {
         setValue('content', response.content)
         setValue('subject', response.subject)
         setLoadingEdit(false)
-        setDisabledButton(false)
       }
       fetch()
     }
@@ -123,17 +121,10 @@ export const LessonForm = () => {
             name="content"
             control={control}
             render={({ field }) => (
-              <>
-                <RichTextEditor
-                  {...field}
-                  onClick={(value) => {
-                    if (value) {
-                      setDisabledButton(false)
-                      setValue(field.name, value)
-                    }
-                  }}
-                />
-              </>
+              <Text as="label">
+                Conteúdo
+                <Textarea {...field} />
+              </Text>
             )}
           />
           <Flex
@@ -147,11 +138,11 @@ export const LessonForm = () => {
               size="lg"
               borderColor={'gray5'}
               variant={'ghost'}
-              onClick={() => navigate('/dashboard')}>
+              onClick={() => navigate('/dashboard')}
+            >
               Cancelar
             </Button>
             <Button
-              disabled={disableButton}
               loading={loading}
               color={'gray5'}
               w={['full', '200px']}
