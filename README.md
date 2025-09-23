@@ -18,6 +18,9 @@
 
 Este repositório contém o **frontend** do projeto **Postaí**, parte do Tech Challenge Fase 3 da FIAP.  
 O objetivo é entregar uma interface **responsiva, acessível e intuitiva**, permitindo a interação com os endpoints REST do backend:
+O projeto está integrado com o backend postado no Render e com banco de dados no Supabase
+Para o gerenciamento do cadastro de aula utilizamos o React-Hook-Form, para o gerenciamento das rotas o React-Router.
+A chamadas da APi utilizamos o fetch nativo do javascript
 
 - 👩‍🏫 Professores → Criar, editar e excluir postagens.
 - 👨‍🎓 Alunos → Visualizar e pesquisar conteúdos.
@@ -32,13 +35,29 @@ O objetivo é entregar uma interface **responsiva, acessível e intuitiva**, per
 
 ## 🧰 Funcionalidades
 
-| Página / Recurso          | Descrição                                                               |
+| Estrutura                 | Descrição                                                               |
 | ------------------------- | ----------------------------------------------------------------------- |
-| **/**                     | Login / Cadastro                                                          | 
+| **/main.tsx**             | Root                                                                    | 
+| **/utils**                | Funções / helpers                                                       |
+| **/services**             | funções de chamada da api                                               |
+| **/routes**               | Rotas (react-router)                                                    |
+| **/pages**                | Dashboard / Home / Lessons / LessonForm (react-hook-form) /Lesson       |
+| **/layout**               | interface de paginás com navbar                                         |
+| **/hooks**                | useLessons                                                              |
+| **/contexts**             | AuthContext                                                             |
+| **/config**               | styles globais                                                          |
+| **/components**           | Alert / CardLesson / InputSearch / Navbar/ Table                        |
+
+
+
+
+|  Rotas                    | Descrição                                                               |
+| ------------------------- | ----------------------------------------------------------------------- |
+| **/**                     | Login / Cadastro                                                        | 
 | **/aulas**                | Exibe todas as aulas.                                                   |
 | **/aula/:id**             | Acessa a aula escolhida.                                                |
 | **/aula/criar**           | Cria uma nova aula.                                                     |
-| **/dashboard**            | Dashboard do professor (visualiza, edita, deleta e cria aula.)           |
+| **/dashboard**            | Dashboard do professor (visualiza, edita, deleta e cria aula.)          |
 
 
 ---
