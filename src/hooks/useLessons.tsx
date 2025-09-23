@@ -85,7 +85,6 @@ const useLessons = () => {
       await deleteLesson(id)
       await handleLessons()
     } catch (err) {
-      console.log(err)
       setLoadingDashboard(false)
     }
   }

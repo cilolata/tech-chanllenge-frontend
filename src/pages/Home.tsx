@@ -94,8 +94,7 @@ export const Home = () => {
                   required: 'Preencha seu nome',
                 }}
                 control={control}
-                render={({ field, fieldState }) => {
-                  console.log(fieldState.error)
+                render={({ field }) => {
                   return (
                     <Field.Root invalid={!!errors.username}>
                       <Field.Label>
