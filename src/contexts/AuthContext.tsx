@@ -10,6 +10,7 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+
   const [isTeacher, setIsTeacher] = useState(false)
 
   const handleWriteSession = (session: { user: any }) => {

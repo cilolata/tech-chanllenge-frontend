@@ -7,6 +7,7 @@ import {
   putLesson,
   searchLesson,
 } from '@/services/lessons'
+import { parsed } from '@/utils'
 import { useEffect, useState } from 'react'
 
 const useLessons = () => {
@@ -31,10 +32,12 @@ const useLessons = () => {
 
   const handleGetLesson = async (id?: string | number) => {
     setLoadingLesson(true)
+    setPost(undefined)
     try {
       if (!id) throw Error()
       const res = await getLesson(id)
-      setPost(res.post)
+      const newTranscription = parsed(res.post.transcription)?.results
+      setPost({...res.post, newTranscription})
       setTeacherName(res.professor)
       setLoadingLesson(false)
       return res.post
@@ -88,7 +91,6 @@ const useLessons = () => {
       setLoadingDashboard(false)
     }
   }
-
 
   useEffect(() => {
     const fetch = async () => {

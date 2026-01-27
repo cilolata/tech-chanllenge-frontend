@@ -8,6 +8,9 @@ export interface IPost {
     updated_at?: Date | string;
     user_id: number;
     teacher?: string
+    url?: string
+    transcription?: string
+    newTranscription?: any
   }
   
   export interface IPostUpdate {
