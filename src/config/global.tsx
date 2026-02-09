@@ -23,8 +23,8 @@ export const config = defineConfig({
         pink: { value: '#E8DEF8' },
       },
       fontSizes: {
-        sm: { value: '12px' },
-        md: { value: '16px' },
+        sm: { value: '16px' },
+        md: { value: '18px' },
         lg: { value: '20px' },
         xl: { value: '24px' },
       },
@@ -40,7 +40,7 @@ export const Font = () => (
     styles={`
       @font-face {
       font-family: "Source Sans 3", sans-serif;    
-      src: url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+      src: url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
       font-weight: normal;
       font-style: normal;
       }

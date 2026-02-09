@@ -68,12 +68,12 @@ export const TableComponent = () => {
               if (Number(item.user_id) === Number(userId)) {
                 return (
                   <Table.Row key={item.id}>
-                    <Table.Cell color="green.600">
+                    <Table.Cell color="green1">
                       <Link to={{ pathname: `/aula/${item.id}` }}>
                         {item.title}
                       </Link>
                     </Table.Cell>
-                    <Table.Cell color="green.600">
+                    <Table.Cell color="green1">
                       <Link to={{ pathname: `/aula/${item.id}` }}>
                         {item.description}
                       </Link>
@@ -87,24 +87,26 @@ export const TableComponent = () => {
                     <Table.Cell textAlign="end">
                       <Flex justifyContent={'end'}>
                         <Button
+                          size={'lg'}
                           variant={'ghost'}
                           onClick={() => {
                             navigate(`/aula/editar/${item.id}`)
                           }}
                         >
-                          <TiEdit color="#6FCF97" size={24} />
+                          <TiEdit color='green' size={48} />
                         </Button>
                       </Flex>
                     </Table.Cell>
                     <Table.Cell textAlign="end">
                       <Flex justifyContent={'end'}>
                         <Button
+                          size={'lg'}
                           variant={'ghost'}
                           onClick={async () => {
                             await handleDeleteLesson(item.id)
                           }}
                         >
-                          <PiTrash color="b30000" size={24} />
+                          <PiTrash color="b30000" size={48} />
                         </Button>
                       </Flex>
                     </Table.Cell>

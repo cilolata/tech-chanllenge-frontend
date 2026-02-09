@@ -7,7 +7,7 @@ import {
   putLesson,
   searchLesson,
 } from '@/services/lessons'
-import { parsed } from '@/utils'
+import { handleTranscriptTime, parsed } from '@/utils'
 import { useEffect, useState } from 'react'
 
 const useLessons = () => {
@@ -37,7 +37,8 @@ const useLessons = () => {
       if (!id) throw Error()
       const res = await getLesson(id)
       const newTranscription = parsed(res.post.transcription)?.results
-      setPost({...res.post, newTranscription})
+      const transcriptTime = handleTranscriptTime(newTranscription)
+      setPost({...res.post, transcriptTime})
       setTeacherName(res.professor)
       setLoadingLesson(false)
       return res.post

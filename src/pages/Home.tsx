@@ -1,4 +1,4 @@
-import { AlertComponent } from '@/components/Alert'
+import { AlertComponent } from '@/shared/alert'
 import { authContext } from '@/contexts/AuthContext'
 import { HTTPResponseStatus } from '@/interfaces'
 import { getLogin } from '@/services/session'
@@ -11,13 +11,13 @@ import {
   Button,
   Text,
   VStack,
-  Link,
   Checkbox,
   Box,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { Navbar } from '@/shared/navbar'
 
 export const Home = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false)
@@ -73,9 +73,12 @@ export const Home = () => {
   }
 
   return (
+    <>
+    <Navbar />
     <VStack
       h={'full'}
       w={'full'}
+      pt='64px'
       justifyContent={'center'}
       alignItems={'center'}
     >
@@ -129,7 +132,7 @@ export const Home = () => {
                 name="password"
                 control={control}
                 rules={{
-                  required:'Preencha sua senha',
+                  required: 'Preencha sua senha',
                 }}
                 render={({ field }) => (
                   <Field.Root invalid={!!errors.password}>
@@ -167,13 +170,14 @@ export const Home = () => {
             <Button
               variant="outline"
               onClick={() => {
+                setIsLoading(false)
                 setErrorMessage('')
                 setIsRegister(false)
               }}
             >
               Cancelar
             </Button>
-            <Button loading={isLoading} type="submit" bg={'green1'}>
+            <Button _hover={{bg: 'green2'}} loading={isLoading} type="submit" bg={'green1'}>
               Entrar
             </Button>
           </Card.Footer>
@@ -182,7 +186,11 @@ export const Home = () => {
       {!isRegister && (
         <Text marginTop={'16px'} fontWeight={'bold'} fontSize={'md'}>
           Não é cadastrado? Faça o seu {''}
-          <Link
+          <Button
+            variant="ghost"
+            px={0}
+            pb={'1'}
+            size={'lg'}
             color={'green2'}
             onClick={() => {
               setIsRegister(true)
@@ -191,9 +199,10 @@ export const Home = () => {
           >
             {' '}
             cadastro
-          </Link>
+          </Button>
         </Text>
       )}
     </VStack>
+    </>
   )
 }

@@ -10,7 +10,7 @@ export interface IPost {
     teacher?: string
     url?: string
     transcription?: string
-    newTranscription?: any
+    transcriptTime?: any[]
   }
   
   export interface IPostUpdate {

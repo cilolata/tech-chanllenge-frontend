@@ -1,4 +1,4 @@
-import { TableComponent } from '@/components/Table'
+import { TableComponent } from '@/components/table'
 import { Button, HStack, Stack, Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router'
 

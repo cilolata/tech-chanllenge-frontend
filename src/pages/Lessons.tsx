@@ -1,5 +1,5 @@
-import { CardLesson } from '@/components/CardLesson'
-import { InputSearch } from '@/components/InputSearch'
+import { CardLesson } from '@/components/cards'
+import { InputSearch } from '@/shared/inputSearch'
 import useLessons from '@/hooks/useLessons'
 import { VStack, Flex, Skeleton, Text, Stack } from '@chakra-ui/react'
 import { IoDocumentTextOutline } from 'react-icons/io5'
