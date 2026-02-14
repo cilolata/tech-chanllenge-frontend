@@ -3,6 +3,7 @@ import { Navbar } from '../shared/navbar'
 import { useEffect } from 'react'
 import { authContext } from '@/contexts/AuthContext'
 import { Home } from '@/pages/Home'
+import { Stack } from '@chakra-ui/react'
 
 function Layout() {
   const { sessionData, isTeacher } = authContext()
@@ -24,10 +25,10 @@ function Layout() {
   }, [location, isTeacher])
 
   return (
-    <>
+    <Stack w={'full'} h={'full'}>
       <Navbar />
-      {sessionData().userId ? <Outlet /> : <Home />}
-    </>
+      <main role="main">{sessionData().userId ? <Outlet /> : <Home />}</main>
+    </Stack>
   )
 }
 

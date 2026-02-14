@@ -32,6 +32,7 @@ export const AudioRecorder = () => {
         <Button
           size={'2xl'}
           variant={started ? 'solid' : 'outline'}
+          _hover={{ bg: 'gray5' }}
           bg={started ? 'green1' : 'transparent'}
           style={{ marginInline: '16px' }}
           onClick={() => {
@@ -44,6 +45,7 @@ export const AudioRecorder = () => {
         </Button>
         <Button
           size={'2xl'}
+          _hover={{ bg: 'gray5' }}
           variant={stopped ? 'solid' : 'outline'}
           bg={stopped ? 'red.500' : 'transparent'}
           style={{ marginInline: '16px' }}
@@ -59,6 +61,7 @@ export const AudioRecorder = () => {
           size={'2xl'}
           variant="outline"
           style={{ marginInline: '16px' }}
+          _hover={{ bg: 'gray5' }}
           onClick={() => {
             reset()
             setStopped(false)

@@ -17,6 +17,12 @@ export const VideoWithSubtitles = ({
     transcript
   )
 
+  const speakText = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = 'pt-BR'
+    window.speechSynthesis.speak(utterance)
+  }
+
   return (
     <HStack
       margin={'0 24px'}
@@ -26,6 +32,9 @@ export const VideoWithSubtitles = ({
       gap={'24px'}
       alignItems={'flex-start'}
     >
+      <button onClick={() => speakText('Bem-vindo ao aplicativo')}>
+        Ouvir boas-vindas
+      </button>
       <Stack w={'50%'}>
         <div
           style={{
@@ -38,7 +47,7 @@ export const VideoWithSubtitles = ({
           <SubtitleOverlay text={activeText} progress={progress} />
         </div>
       </Stack>
-      <Stack w={'50%'} padding="0 24px" bg={'gray.100'} borderRadius={'4px'}>
+      <Stack w={'50%'} padding="0 24px" borderRadius={'4px'}>
         <Heading mt={'16px'} mb={'8px'}>
           Transcrição
         </Heading>

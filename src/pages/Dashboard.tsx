@@ -17,7 +17,7 @@ export const Dashboard = () => {
           Dashboard de postagens
         </Text>
         <Button
-          bg={'green1'}
+          bg={'green.800'}
           onClick={() => {
             navigate(`/aula/criar`)
           }}
@@ -25,9 +25,7 @@ export const Dashboard = () => {
           Criar aula
         </Button>
       </HStack>
-      <TableComponent
-      />
+      <TableComponent />
     </Stack>
   )
 }
-

@@ -4,8 +4,30 @@ import { Global } from '@emotion/react'
 export const config = defineConfig({
   globalCss: {
     'html, body, #root': {
-      height: '100vh',
+      minHeight: '100vh',
       width: '100%',
+      bg: 'bg',
+      backgroundSize: 'cover',
+      fontSize: 'sm',
+      color: 'text',
+      transition: 'background 0.2s ease, color 0.2s ease',
+    },
+
+    'html.small-text': {
+      fontSize: 'sm',
+    },
+
+    'html.medium-text': {
+      fontSize: 'md',
+    },
+
+    'html.large-text': {
+      fontSize: 'lg',
+    },
+
+    'body.manual-contrast': {
+      '--chakra-colors-bg': '#000',
+      '--chakra-colors-text': '#fff',
     },
   },
   theme: {
@@ -23,13 +45,29 @@ export const config = defineConfig({
         pink: { value: '#E8DEF8' },
       },
       fontSizes: {
-        sm: { value: '16px' },
-        md: { value: '18px' },
-        lg: { value: '20px' },
-        xl: { value: '24px' },
+        sm: { value: '1rem' },
+        md: { value: '1.125rem' },
+        lg: { value: '1.25rem' },
       },
       lineHeights: {
         normal: { value: '1.5' },
+      },
+    },
+
+    semanticTokens: {
+      colors: {
+        bg: {
+          value: {
+            _light: '#fff',
+            _dark: '#000',
+          },
+        },
+        text: {
+          value: {
+            _light: '#000',
+            _dark: '#fff',
+          },
+        },
       },
     },
   },

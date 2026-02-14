@@ -7,9 +7,9 @@ interface InputSearchProps {
 
 export const InputSearch: React.FC<InputSearchProps> = ({ onChange }) => {
   return (
-    <Container maxW={{ sm: 'full', md: '600px' }}>
+    <Container  maxW={{ sm: 'full', md: '600px' }}>
       <InputGroup startElement={<LuSearch />}>
-        <Input rounded="16px" placeholder="Pesquisar" onChange={onChange} />
+        <Input bg={'white'} rounded="16px" placeholder="Pesquisar" onChange={onChange} />
       </InputGroup>
     </Container>
   )
