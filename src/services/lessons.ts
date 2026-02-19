@@ -46,7 +46,7 @@ export const getAllLessons = async () => {
   export const searchLesson = async (search?: string) => {
     try {
       const response = await fetch(
-        `h/posts?search=${search}`,
+        `http://localhost:3000/posts?search=${search}`,
         {
           method: 'GET',
           headers: {
@@ -72,10 +72,9 @@ export const getAllLessons = async () => {
       const response = await fetch(`http://localhost:3000/posts`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
-        body: JSON.stringify(data),
+        body: data,
       })
   
       if (!response.ok) {
@@ -93,10 +92,9 @@ export const getAllLessons = async () => {
       const response = await fetch(`http://localhost:3000/posts/${postId}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
-        body: JSON.stringify(data),
+        body: data,
       })
   
       if (!response.ok) {

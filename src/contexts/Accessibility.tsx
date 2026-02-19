@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 interface AccessibilityContextData {
   readingMode: boolean
@@ -12,6 +12,7 @@ interface AccessibilityContextData {
   handleSmallText: () => void
   handleMediumText: () => void
   handleLargeText: () => void
+  handleVoiceOver: () => void
 }
 
 const AccessibilityContext = createContext<AccessibilityContextData>(
@@ -27,7 +28,7 @@ export const AccessibilityProvider = ({
   const [isLessonPage, setIsLessonPage] = useState(false)
   const [showVideo, setShowVideo] = useState(false)
   const [isContrast, setIsisContrast] = useState(false)
-
+  const [voiceOver, setVoiceOver] = useState(false)
 
   const handleContrastToggle = () => {
     setIsisContrast(!isContrast)
@@ -35,7 +36,9 @@ export const AccessibilityProvider = ({
       window.document.body.classList.add('manual-contrast')
     } else {
       window.document.body.classList.remove('manual-contrast')
-      window.document.querySelector('.navbar')?.classList.remove('manual-contrast')
+      window.document
+        .querySelector('.navbar')
+        ?.classList.remove('manual-contrast')
     }
   }
 
@@ -60,6 +63,36 @@ export const AccessibilityProvider = ({
     html?.classList.add('large-text')
   }
 
+  const speakText = (text: string | undefined) => {
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = 'pt-BR'
+    window.speechSynthesis.speak(utterance)
+  }
+
+  const handleVoiceOver = () => {
+    setVoiceOver(!voiceOver)
+  }
+
+  useEffect(() => {
+    if (voiceOver) {
+      window.document.addEventListener('focusin', (event) => {
+        const target = event.target as HTMLElement
+        console.log(target)
+        if(target && target.tagName === 'VIDEO') {
+          const ariaLabel = target.getAttribute('aria-label') || ''
+          speakText(ariaLabel)
+        }
+        if (target && target.tagName === 'INPUT') {
+          const placeholder = target.getAttribute('placeholder') || target.getAttribute('aria-label') || '' 
+          speakText(placeholder)
+        }
+        if (target && target.innerText) {
+          speakText(target.innerText)
+        }
+      })
+    }
+  }, [voiceOver])
+
   return (
     <AccessibilityContext.Provider
       value={{
@@ -73,7 +106,8 @@ export const AccessibilityProvider = ({
         isContrast,
         handleSmallText,
         handleMediumText,
-        handleLargeText
+        handleLargeText,
+        handleVoiceOver,
       }}
     >
       {children}

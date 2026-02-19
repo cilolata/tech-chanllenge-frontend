@@ -35,6 +35,7 @@ export const Home = () => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: {
       username: '',
@@ -92,7 +93,7 @@ export const Home = () => {
             color={isContrast ? 'white' : 'black'}
           >
             <Card.Header>
-              <Card.Title color={isContrast ? 'white' : 'gray1'}>
+              <Card.Title tabIndex={0} color={isContrast ? 'white' : 'gray1'}>
                 {isRegister ? 'Cadastrar' : 'Entrar'}
               </Card.Title>
             </Card.Header>
@@ -107,12 +108,16 @@ export const Home = () => {
                   render={({ field }) => {
                     return (
                       <Field.Root invalid={!!errors.username}>
-                        <Field.Label>
+                        <Field.Label tabIndex={0}>
                           Nome<Text color={'red'}>*</Text>{' '}
                           <Field.RequiredIndicator />
                         </Field.Label>
-                        <Input {...field} />
-                        <Field.ErrorText>
+                        <Input
+                          {...field}
+                          aria-label="Digite o seu nome"
+                          placeholder="Digite o seu nome"
+                        />
+                        <Field.ErrorText tabIndex={0}>
                           {errors.username?.message}
                         </Field.ErrorText>
                       </Field.Root>
@@ -127,11 +132,18 @@ export const Home = () => {
                   }}
                   render={({ field }) => (
                     <Field.Root invalid={!!errors.email}>
-                      <Field.Label>
+                      <Field.Label tabIndex={0}>
                         E-mail<Text color={'red'}>*</Text>{' '}
                       </Field.Label>
-                      <Input type="email" {...field} />
-                      <Field.ErrorText>{errors.email?.message}</Field.ErrorText>
+                      <Input
+                        type="email"
+                        {...field}
+                        aria-label="Digite a seu email"
+                        placeholder="Digite o seu e-mail"
+                      />
+                      <Field.ErrorText tabIndex={0}>
+                        {errors.email?.message}
+                      </Field.ErrorText>
                     </Field.Root>
                   )}
                 />
@@ -143,17 +155,22 @@ export const Home = () => {
                   }}
                   render={({ field }) => (
                     <Field.Root invalid={!!errors.password}>
-                      <Field.Label>
+                      <Field.Label tabIndex={0}>
                         Senha<Text color={'red'}>*</Text>
                       </Field.Label>
-                      <Input type="password" {...field} />
-                      <Field.ErrorText>
+                      <Input
+                        type="password"
+                        {...field}
+                        aria-label="Digite a sua senha"
+                        placeholder="Digite a sua senha"
+                      />
+                      <Field.ErrorText tabIndex={0}>
                         {errors.password?.message}
                       </Field.ErrorText>
                     </Field.Root>
                   )}
                 />
-                <Box mt={'1'}>
+                <Box mt={'1'} tabIndex={0}>
                   {erroMessage && (
                     <AlertComponent title={erroMessage} statusType={'error'} />
                   )}
@@ -163,10 +180,26 @@ export const Home = () => {
                     name="permissionType"
                     control={control}
                     render={({ field }) => (
-                      <Checkbox.Root {...field} mt="2" value="1">
-                        <Checkbox.HiddenInput />
+                      <Checkbox.Root {...field} 
+                      checked={field.value}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault()
+                          field.onChange(!field.value)
+                        }
+                      }}
+                      onCheckedChange={({ checked }) => {
+                        field.onChange(checked)
+                      }}
+                      mt="2" value="1">
+                        <Checkbox.HiddenInput
+                          placeholder={'checkbox sou professor'}
+                          tabIndex={0}
+                        />
                         <Checkbox.Control />
-                        <Checkbox.Label>Sou professor</Checkbox.Label>
+                        <Checkbox.Label tabIndex={0} aria-label="Sou professor">
+                          Sou professor
+                        </Checkbox.Label>
                       </Checkbox.Root>
                     )}
                   />
@@ -197,7 +230,12 @@ export const Home = () => {
           </Card.Root>
         </form>
         {!isRegister && (
-          <Text marginTop={'16px'} fontWeight={'bold'} fontSize={'md'}>
+          <Text
+            tabIndex={0}
+            marginTop={'16px'}
+            fontWeight={'bold'}
+            fontSize={'md'}
+          >
             Não é cadastrado? Faça o seu {''}
             <Button
               variant="solid"

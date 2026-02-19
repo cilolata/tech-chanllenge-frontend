@@ -68,44 +68,48 @@ export const TableComponent = () => {
               if (Number(item.user_id) === Number(userId)) {
                 return (
                   <Table.Row key={item.id}>
-                    <Table.Cell color="green1">
+                    <Table.Cell color="purple">
                       <Link to={{ pathname: `/aula/${item.id}` }}>
                         {item.title}
                       </Link>
                     </Table.Cell>
-                    <Table.Cell color="green1">
+                    <Table.Cell color="purple">
                       <Link to={{ pathname: `/aula/${item.id}` }}>
                         {item.description}
                       </Link>
                     </Table.Cell>
-                    <Table.Cell textAlign="end">
+                    <Table.Cell tabIndex={0} textAlign="end">
                       {dateFormatter(item.created_at)}
                     </Table.Cell>
-                    <Table.Cell textAlign="end">
+                    <Table.Cell tabIndex={0} textAlign="end">
                       {dateFormatter(item.updated_at)}
                     </Table.Cell>
                     <Table.Cell textAlign="end">
                       <Flex justifyContent={'end'}>
                         <Button
+                          aria-label="Editar aula"
                           size={'lg'}
                           variant={'ghost'}
                           onClick={() => {
                             navigate(`/aula/editar/${item.id}`)
                           }}
                         >
-                          <TiEdit color='green' size={48} />
+                          editar aula
+                          <TiEdit color="green" size={48} />
                         </Button>
                       </Flex>
                     </Table.Cell>
                     <Table.Cell textAlign="end">
                       <Flex justifyContent={'end'}>
                         <Button
+                          aria-label="Deletar aula"
                           size={'lg'}
                           variant={'ghost'}
                           onClick={async () => {
                             await handleDeleteLesson(item.id)
                           }}
                         >
+                          Deletar aula
                           <PiTrash color="b30000" size={48} />
                         </Button>
                       </Flex>

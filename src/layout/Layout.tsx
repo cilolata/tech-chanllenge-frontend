@@ -25,7 +25,7 @@ function Layout() {
   }, [location, isTeacher])
 
   return (
-    <Stack w={'full'} h={'full'}>
+    <Stack id={'container-main'} w={'full'} h={'full'}>
       <Navbar />
       <main role="main">{sessionData().userId ? <Outlet /> : <Home />}</main>
     </Stack>

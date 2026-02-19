@@ -10,6 +10,7 @@ export const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { sessionData, isTeacher, clearSession } = authContext()
+  const { handleVoiceOver } = useAccessibilityContext()
   const name = sessionData()?.username
 
   const {
@@ -41,13 +42,14 @@ export const Navbar = () => {
       shadow={'sm'}
     >
       <Flex
+        className="navbar"
         justifyContent={'space-between'}
         alignItems={'center'}
         h={'full'}
         paddingX={'24px'}
         gap={'16px'}
       >
-        <HStack gap={'16px'}>
+        <HStack gap={'16px'} className="navbar">
           <Container
             w={'fit-content'}
             bg={'pink'}
@@ -74,6 +76,14 @@ export const Navbar = () => {
           <Button
             bg={'white'}
             variant={'ghost'}
+            borderRadius={'4px'}
+            onClick={handleVoiceOver}
+          >
+            Ativar voice over
+          </Button>
+          <Button
+            bg={'white'}
+            variant={'ghost'}
             _hover={{ bg: 'gray5' }}
             borderRadius={'4px'}
             onClick={() => {
@@ -83,7 +93,7 @@ export const Navbar = () => {
             Contraste
           </Button>
           <Button
-            bg={isSelected === 'sm' ? 'gray5' : 'white' }
+            bg={isSelected === 'sm' ? 'gray5' : 'white'}
             variant={'outline'}
             fontSize={'sm'}
             _hover={{ bg: 'gray5' }}
@@ -96,7 +106,7 @@ export const Navbar = () => {
             A
           </Button>
           <Button
-            bg={isSelected === 'md' ? 'gray5' : 'white' }
+            bg={isSelected === 'md' ? 'gray5' : 'white'}
             variant={'outline'}
             _hover={{ bg: 'gray5' }}
             fontSize={'md'}
@@ -109,7 +119,7 @@ export const Navbar = () => {
             A
           </Button>
           <Button
-            bg={isSelected === 'lg' ? 'gray5' : 'white' }
+            bg={isSelected === 'lg' ? 'gray5' : 'white'}
             variant={'outline'}
             _hover={{ bg: 'gray5' }}
             fontSize={'lg'}
@@ -122,7 +132,7 @@ export const Navbar = () => {
             A
           </Button>
         </HStack>
-        <HStack gap={'16px'}>
+        <HStack gap={'16px'} className="navbar">
           {isTeacher && (
             <Button
               bg={'white'}

@@ -33,6 +33,7 @@ export const LessonForm = () => {
       subject: '',
       user_id: userId,
       editId: id,
+      video: undefined as unknown as File | undefined,
     },
   })
 
@@ -55,10 +56,19 @@ export const LessonForm = () => {
     setLoading(true)
     try {
       const { editId, ...rest } = data
+      const formData = new FormData()
+      formData.append("video", rest.video)
+      formData.append("title", rest.title)
+      formData.append("description", rest.description)      
+      formData.append("content", rest.content)
+      formData.append("subject", rest.subject)
+      formData.append("user_id", rest.user_id)
+
+
       if (editId) {
-        await handlePutLesson(editId, rest)
+        await handlePutLesson(editId, formData)
       } else {
-        await handleCreateLesson(rest)
+        await handleCreateLesson(formData)
       }
       setLoading(false)
       navigate('/dashboard')
@@ -91,9 +101,9 @@ export const LessonForm = () => {
             name="subject"
             control={control}
             render={({ field }) => (
-              <Text as="label">
+              <Text as="label" tabIndex={0}>
                 Matéria
-                <Input {...field} />
+                <Input {...field} placeholder={'Matéria'} />
               </Text>
             )}
           />
@@ -101,9 +111,9 @@ export const LessonForm = () => {
             name="title"
             control={control}
             render={({ field }) => (
-              <Text as="label">
+              <Text as="label" tabIndex={0}>
                 Título
-                <Input {...field} />
+                <Input {...field} placeholder={'Título'} />
               </Text>
             )}
           />
@@ -111,9 +121,9 @@ export const LessonForm = () => {
             name="description"
             control={control}
             render={({ field }) => (
-              <Text as="label">
+              <Text as="label" tabIndex={0}>
                 Descrição
-                <Input {...field} />
+                <Input {...field} placeholder={'Descrição'} />
               </Text>
             )}
           />
@@ -121,10 +131,23 @@ export const LessonForm = () => {
             name="content"
             control={control}
             render={({ field }) => (
-              <Text as="label">
+              <Text as="label" tabIndex={0}>
                 Conteúdo
-                <Textarea {...field} />
+                <Textarea placeholder={'Conteúdo'} {...field} />
               </Text>
+            )}
+          />
+          <Controller
+            name="video"
+            control={control}
+            render={({ field }) => (
+              <>
+              <Text tabIndex={0}>Upload de vídeo</Text>
+              <input aria-label='input de upload' accept=".mp4" type='file' onChange={(e) => {
+                field.onChange(e)
+                setValue('video', e.target?.files?.[0])
+              }} />
+              </>
             )}
           />
           <Flex
@@ -133,11 +156,9 @@ export const LessonForm = () => {
             gap={'16px'}
           >
             <Button
-              color={'gray3'}
               w={['full', '200px']}
               size="lg"
-              borderColor={'gray5'}
-              variant={'ghost'}
+              variant={'outline'}
               onClick={() => navigate('/dashboard')}
             >
               Cancelar
@@ -148,8 +169,9 @@ export const LessonForm = () => {
               w={['full', '200px']}
               size="lg"
               type="submit"
-              bg={'green1'}
-            >
+              bg={'green.800'} 
+              _hover={{ bg: 'green2' }}
+              >
               Enviar
             </Button>
           </Flex>

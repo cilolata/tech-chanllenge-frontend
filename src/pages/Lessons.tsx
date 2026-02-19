@@ -8,15 +8,22 @@ export const Lessons: React.FC = () => {
   const { loadingAllLessons, posts, handleSearchLesson } = useLessons()
 
   const handleSearch = async (search?: string) => {
-     await handleSearchLesson(search)
+    await handleSearchLesson(search)
   }
 
   return (
-    <Stack>
-      <Text as={'h1'} fontSize={'lg'} fontWeight={'bold'} padding={'24px'} marginTop={'64px'}>
+    <Stack padding={'8px 64px'}>
+      <Text
+        tabIndex={0}
+        as={'h1'}
+        fontSize={'lg'}
+        fontWeight={'bold'}
+        padding={'24px'}
+        marginTop={'64px'}
+      >
         Painel de aulas
       </Text>
-      <InputSearch onChange={e => handleSearch(e.target.value)} />
+      <InputSearch onChange={(e) => handleSearch(e.target.value)} />
       <VStack as={'section'} gap={'24px'} padding={'24px'}>
         {posts?.length === 0 && !loadingAllLessons ? (
           <>

@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useState, use, useRef } from 'react'
+import { type ReactNode, useEffect } from 'react'
 import {
   Icon,
   Stack,
@@ -32,7 +32,7 @@ export const IconWithReactIcon: React.FC<{ children: ReactNode }> = ({
 export const Lesson = () => {
   const { id } = useParams()
   const { post, teacherName, loadingLesson, handleGetLesson } = useLessons()
-  const { readingMode, setReadingMode, showVideo, setShowVideo } =
+  const { readingMode, setReadingMode, showVideo, setShowVideo, isContrast } =
     useAccessibilityContext()
 
   useEffect(() => {
@@ -58,9 +58,12 @@ export const Lesson = () => {
           </Button>
         </HStack>
         <VStack gap={'24px'} padding={'16px'} justifyContent={'center'}>
-          <Heading>{post?.title}</Heading>
+          <Heading tabIndex={0}>{post?.title}</Heading>
           {post?.content && (
-            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div
+              tabIndex={0}
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
           )}
         </VStack>
       </Stack>
@@ -82,40 +85,51 @@ export const Lesson = () => {
             <HStack justifyContent={'space-between'}>
               <Wrap>
                 <Skeleton asChild loading={loadingLesson}>
-                  <Badge size="lg">
+                  <Badge colorPalette={isContrast ? 'pink' : 'gray'} size="lg">
                     <IconWithReactIcon>
                       <FaChalkboardTeacher />
                     </IconWithReactIcon>
                     {teacherName && (
                       <>
-                        <Text fontWeight={'bold'}>Professor:</Text>
-                        <Text>{teacherName}</Text>
+                        <Text tabIndex={0} fontWeight={'bold'}>
+                          Professor:
+                        </Text>
+                        <Text tabIndex={0}>{teacherName}</Text>
                       </>
                     )}
                   </Badge>
                 </Skeleton>
                 <Skeleton asChild loading={loadingLesson}>
-                  <Badge colorPalette="green" size="lg">
+                  <Badge colorPalette={isContrast ? 'pink' : 'green'} size="lg">
                     <IconWithReactIcon>
                       <MdSubject />
                     </IconWithReactIcon>
                     {post?.subject && (
                       <>
-                        <Text fontWeight={'bold'}>Matéria:</Text>
-                        <Text>{post.subject}</Text>
+                        <Text tabIndex={0} fontWeight={'bold'}>
+                          Matéria:
+                        </Text>
+                        <Text tabIndex={0}>{post.subject}</Text>
                       </>
                     )}
                   </Badge>
                 </Skeleton>
                 <Skeleton asChild loading={!post}>
-                  <Badge colorPalette="purple" size="lg">
+                  <Badge
+                    colorPalette={isContrast ? 'pink' : 'purple'}
+                    size="lg"
+                  >
                     <IconWithReactIcon>
                       <FaRegCalendarAlt />
                     </IconWithReactIcon>
                     {post?.created_at && (
                       <>
-                        <Text fontWeight={'bold'}>Data postagem:</Text>
-                        <Text>{dateFormatter(post.created_at)}</Text>
+                        <Text tabIndex={0} fontWeight={'bold'}>
+                          Data postagem:
+                        </Text>
+                        <Text tabIndex={0}>
+                          {dateFormatter(post.created_at)}
+                        </Text>
                       </>
                     )}
                   </Badge>
@@ -123,7 +137,8 @@ export const Lesson = () => {
               </Wrap>
               {post?.url && (
                 <Button
-                  bg={'green.800'}
+                  bg={isContrast ? 'white' : 'green.800'}
+                  color={isContrast ? 'black' : 'white'}
                   onClick={() => {
                     setShowVideo(!showVideo)
                   }}
@@ -136,8 +151,17 @@ export const Lesson = () => {
             <LessonContent title={post?.title} content={post?.content} />
           </>
         ) : (
-          <VStack gap={'24px'} padding={' 0 16px'} justifyContent={'center'}>
-            <HStack w={'full'} justifyContent={'flex-end'}>
+          <Stack gap={'24px'}>
+            <HStack w={'full'} justifyContent={'space-between'}>
+              <Text
+                tabIndex={0}
+                as={'h1'}
+                fontSize={'lg'}
+                fontWeight={'bold'}
+                padding={'8px 64px'}
+              >
+                Vídeo da aula
+              </Text>
               <Button
                 bg={'white'}
                 variant={'ghost'}
@@ -156,7 +180,7 @@ export const Lesson = () => {
                 />
               </>
             )}
-          </VStack>
+          </Stack>
         )}
       </>
     </Stack>

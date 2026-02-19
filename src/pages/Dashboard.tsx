@@ -9,6 +9,7 @@ export const Dashboard = () => {
     <Stack h={'full'} w={'full'} marginTop={'64px'}>
       <HStack w={'full'} justifyContent={'space-between'} paddingX={'24px'}>
         <Text
+          tabIndex={0}
           as={'h1'}
           fontSize={'lg'}
           fontWeight={'bold'}

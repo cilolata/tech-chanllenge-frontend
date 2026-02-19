@@ -9,7 +9,7 @@ export const InputSearch: React.FC<InputSearchProps> = ({ onChange }) => {
   return (
     <Container  maxW={{ sm: 'full', md: '600px' }}>
       <InputGroup startElement={<LuSearch />}>
-        <Input bg={'white'} rounded="16px" placeholder="Pesquisar" onChange={onChange} />
+        <Input aria-label='Pesquisar' bg={'white'} rounded="16px" placeholder="Pesquisar" onChange={onChange} />
       </InputGroup>
     </Container>
   )
