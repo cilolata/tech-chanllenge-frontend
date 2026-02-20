@@ -166,7 +166,6 @@ export const Navbar = () => {
               >
                 Aulas
               </Button>
-              {!isTeacher && (
                 <Button
                   bg={'white'}
                   variant={'ghost'}
@@ -183,7 +182,6 @@ export const Navbar = () => {
                 >
                   Transcrição de áudio
                 </Button>
-              )}
               <Button
                 bg={'white'}
                 _hover={{ bg: 'gray5' }}

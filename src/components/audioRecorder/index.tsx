@@ -1,5 +1,5 @@
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition'
-import { Button, HStack, VStack, Text, Box } from '@chakra-ui/react'
+import { Button, HStack, VStack, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 
 
