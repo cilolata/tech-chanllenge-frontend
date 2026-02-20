@@ -1,6 +1,6 @@
 export const getAllLessons = async () => {
     try {
-      const response = await fetch('http://localhost:3000/posts', {
+      const response = await fetch('https://postai-latest.onrender.com/posts', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export const getAllLessons = async () => {
   export const getLesson = async (id?: number | string) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${id}`,
+        `https://postai-latest.onrender.com/posts/${id}`,
         {
           method: 'GET',
           headers: {
@@ -46,7 +46,7 @@ export const getAllLessons = async () => {
   export const searchLesson = async (search?: string) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts?search=${search}`,
+        `https://postai-latest.onrender.com/posts?search=${search}`,
         {
           method: 'GET',
           headers: {
@@ -69,7 +69,7 @@ export const getAllLessons = async () => {
   
   export const postLesson = async (data: any) => {
     try {
-      const response = await fetch(`http://localhost:3000/posts`, {
+      const response = await fetch(`https://postai-latest.onrender.com/posts`, {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -89,7 +89,7 @@ export const getAllLessons = async () => {
    
   export const putLesson = async (postId: any, data: any) => {
     try {
-      const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+      const response = await fetch(`https://postai-latest.onrender.com/posts/${postId}`, {
         method: 'PUT',
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -108,7 +108,7 @@ export const getAllLessons = async () => {
 
   export const deleteLesson = async (id: any) => {
     try {
-      const response = await fetch(`http://localhost:3000/posts/${id}`, {
+      const response = await fetch(`https://postai-latest.onrender.com/posts/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

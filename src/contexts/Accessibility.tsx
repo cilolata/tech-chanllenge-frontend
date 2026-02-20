@@ -77,7 +77,6 @@ export const AccessibilityProvider = ({
     if (voiceOver) {
       window.document.addEventListener('focusin', (event) => {
         const target = event.target as HTMLElement
-        console.log(target)
         if(target && target.tagName === 'VIDEO') {
           const ariaLabel = target.getAttribute('aria-label') || ''
           speakText(ariaLabel)
