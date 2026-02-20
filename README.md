@@ -44,16 +44,17 @@ A chamadas da APi utilizamos o fetch nativo do javascript
 | **/pages**                | Dashboard / Home / Lessons / LessonForm (react-hook-form) /Lesson       |
 | **/layout**               | interface de paginás com navbar                                         |
 | **/hooks**                | useLessons                                                              |
-| **/contexts**             | AuthContext                                                             |
+| **/contexts**             | AuthContext / AccessibilityContext                                      |
 | **/config**               | styles globais                                                          |
-| **/components**           | Alert / CardLesson / InputSearch / Navbar/ Table                        |
+| **/components**           | cards / subtitlesOverlay / lessonContent/ table / videoComponent / audioRecorde|
+| **/shared**               | alert / inputSearch / navbar                                            |
 
 
 
 
 |  Rotas                    | Descrição                                                               |
 | ------------------------- | ----------------------------------------------------------------------- |
-| **/**                     | Login / Cadastro                                                        | 
+| **/login**                  | Login / Cadastro                                                        
 | **/aulas**                | Exibe todas as aulas.                                                   |
 | **/aula/:id**             | Acessa a aula escolhida.                                                |
 | **/aula/criar**           | Cria uma nova aula.                                                     |
@@ -78,3 +79,16 @@ flowchart TB
   C --> I["Contextos"]
 
 ```
+
+
+## Validação de Acessibilidade
+<img width="1436" height="543" alt="Screenshot 2026-02-20 at 19 28 47" src="https://github.com/user-attachments/assets/9d8ae1af-22e9-49b5-a68d-3a3fc86c9ef7" />
+
+<img width="1434" height="617" alt="Screenshot 2026-02-20 at 19 29 31" src="https://github.com/user-attachments/assets/73e0822b-b4f9-4a49-82ca-3ef8d812809b" />
+
+<img width="1428" height="500" alt="Screenshot 2026-02-20 at 19 27 45" src="https://github.com/user-attachments/assets/715e2679-8350-432a-8db9-38768e88ce9b" />
+
+<img width="1428" height="500" alt="Screenshot 2026-02-20 at 19 27 45" src="https://github.com/user-attachments/assets/7de7219f-de35-4f2b-8e76-534d1050c4c0" />
+
+<img width="1438" height="645" alt="Screenshot 2026-02-20 at 19 30 09" src="https://github.com/user-attachments/assets/c67f2bf6-349b-43d3-9c8d-b28f58b92d7e" />
+
